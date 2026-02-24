@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Security Scanner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+
+    <h2>🔐 Cyber Security Scanner</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="url" placeholder="Enter URL">
+        <p style="text-align:center;">OR</p>
+        <input type="file" name="qr_image">
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if extracted_url %}
+        <div class="result">
+            <strong>Extracted URL:</strong>
+            <p>{{ extracted_url }}</p>
+        </div>
+    {% endif %}
+
+    {% if result %}
+        <div class="result">
+            <h3>{{ result }}</h3>
+            <p>Risk Score: {{ risk_score }}%</p>
+
+            <div class="progress-bar" 
+     style="width: {{ risk_score | default(0) }}%; 
+            background-color: {{ 'red' if risk_score > 70 else '#00AEEF' }};">
+</div>
+
+            {% if reasons %}
+                <ul>
+                    {% for reason in reasons %}
+                        <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
