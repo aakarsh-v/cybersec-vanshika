@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import cv2
 import numpy as np
 from PIL import Image
+import os
 
 app = Flask(__name__)
 
@@ -107,4 +108,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
